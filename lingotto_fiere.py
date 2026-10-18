@@ -20,14 +20,14 @@ class LingottoFiere:
 
     @property
     def espositori(self):
-        return self.espositori
+        return self._espositori
     @espositori.setter
     def espositori(self, nuovoEspositore):
         self.espositori.append(nuovoEspositore)
 
     @property
     def stand(self):
-        return self.stand
+        return self._stand
     @stand.setter
     def stand(self, nuovoStand):
         self.stand.append(nuovoStand)
@@ -45,13 +45,13 @@ class LingottoFiere:
             campo = line.strip().split(",")
             if campo[0][0] == "S":
                 if len(campo) == 4:
-                    stand_normale = Stand(campo[0], campo[1], campo[2], campo[3], None, True)
+                    stand_normale = Stand(campo[0], float(campo[1]), int(campo[2]), float(campo[3]), None, True)
                     self.stand.append(stand_normale)
                 elif len(campo) == 5 and campo[4].isnumeric():
-                    stand_con_prese = StandPreseBonus(campo[0], campo[1], campo[2], campo[3], None, True, float(campo[4]))
+                    stand_con_prese = StandPreseBonus(campo[0], float(campo[1]), int(campo[2]), float(campo[3]), None, True, int(campo[4]))
                     self.stand.append(stand_con_prese)
                 elif len(campo) == 5 and campo[4].isalpha():
-                    stand_prem = StandPremium(campo[0], campo[1], campo[2], campo[3], None, True, float(campo[4]))
+                    stand_prem = StandPremium(campo[0], float(campo[1]), int(campo[2]), float(campo[3]), None, True, campo[4])
                     self.stand.append(stand_prem)
                 elif campo[0][0] == "E":
                     espositore_nuovo = Espositori(campo[0], campo[1], campo[2], None)

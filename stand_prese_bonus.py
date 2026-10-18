@@ -1,4 +1,6 @@
-class StandPreseBonus:
+from stand import Stand
+
+class StandPreseBonus(Stand):
     def __init__(self, codice, superficie, padiglione, prezzo, espositore_assegnato, disponibile, numeroprese):
         super().__init__(codice, superficie, padiglione, prezzo, espositore_assegnato, disponibile)
         self.numeroprese = numeroprese

@@ -1,4 +1,6 @@
-class StandPremium:
+from stand import Stand
+
+class StandPremium(Stand):
     def __init__(self, codice, superficie, padiglione, prezzo, espositore_assegnato, disponibile, posizione):
         super().__init__(codice, superficie, padiglione, prezzo, espositore_assegnato, disponibile)
         self.posizione = posizione
