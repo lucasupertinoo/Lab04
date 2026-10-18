@@ -5,4 +5,4 @@ class StandPremium:
         self.prezzo = prezzo * 1.3
 
     def __str__(self):
-        return f"{super.__str__()} posizionato nella zona {self.posizione}"
+        return f"{super().__str__()} posizionato nella zona {self.posizione}"

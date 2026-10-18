@@ -6,9 +6,9 @@ from stand_prese_bonus import StandPreseBonus
 class LingottoFiere:
     def __init__(self, nome):
         """Inizializza gli attributi e le strutture dati"""
-        self.nome = nome
-        self.stand = []
-        self.espositori = []
+        self._nome = nome
+        self._stand = []
+        self._espositori = []
 
     """Aggiungere setter e getter se necessari"""
     @property
@@ -42,18 +42,17 @@ class LingottoFiere:
 
         file.readline()
         for line in file:
-            while line != "":
-                campo = line.strip().split(",")
-                if campo[0][0] == "S":
-                    if len(campo) == 4:
-                        stand_normale = Stand(campo[0], campo[1], campo[2], campo[3], None, True)
-                        self.stand.append(stand_normale)
-                    elif len(campo) == 5 and campo[4].isnumeric():
-                        stand_con_prese = StandPreseBonus(campo[0], campo[1], campo[2], campo[3], None, True, campo[4])
-                        self.stand.append(stand_con_prese)
-                    elif len(campo) == 5 and campo[4].isalpha():
-                        stand_prem = StandPremium(campo[0], campo[1], campo[2], campo[3], None, True, campo[4])
-                        self.stand.append(stand_prem)
+            campo = line.strip().split(",")
+            if campo[0][0] == "S":
+                if len(campo) == 4:
+                    stand_normale = Stand(campo[0], campo[1], campo[2], campo[3], None, True)
+                    self.stand.append(stand_normale)
+                elif len(campo) == 5 and campo[4].isnumeric():
+                    stand_con_prese = StandPreseBonus(campo[0], campo[1], campo[2], campo[3], None, True, float(campo[4]))
+                    self.stand.append(stand_con_prese)
+                elif len(campo) == 5 and campo[4].isalpha():
+                    stand_prem = StandPremium(campo[0], campo[1], campo[2], campo[3], None, True, float(campo[4]))
+                    self.stand.append(stand_prem)
                 elif campo[0][0] == "E":
                     espositore_nuovo = Espositori(campo[0], campo[1], campo[2], None)
                     self.espositori.append(espositore_nuovo)
@@ -69,21 +68,23 @@ class LingottoFiere:
             if st.codice == codice_stand:
                 standtrovato = True
                 disponibilita = st.disponibile
+                break
         for esp in self.espositori:
-            if esp.codice == codice_espositore:
+            if esp.ID == codice_espositore:
                 espositoretrovato = True
                 associazione = esp.stand_associato
+                break
 
         if not standtrovato:
-            raise("Stand non trovato!")
+            raise Exception("Stand non trovato!")
         elif not espositoretrovato:
-            raise("Espositoretro non trovato!")
+            raise Exception("Espositoretro non trovato!")
 
         if not disponibilita:
-            raise("Stand non disponibile!")
+            raise Exception("Stand non disponibile!")
 
         if associazione != None:
-            raise("Espositore già associato ad uno stand!")
+            raise Exception("Espositore già associato ad uno stand!")
 
         st.disponibilita = False
         st.espositore_associato = codice_espositore
@@ -93,7 +94,7 @@ class LingottoFiere:
     def elenca_espositori(self):
         """Stampa l'elenco degli espositori mostrando, per ognuno, lo stand a cui è associato, quando applicabile """
         for elemento in self.espositori:
-            return elemento
+            print(elemento)
 
     def stand_ordinati_per_prezzo(self):
         """Restituisce la lista ordinata degli stand in base al prezzo"""

@@ -5,4 +5,4 @@ class StandPreseBonus:
         self.prezzo = prezzo * (1 + 0.07 * numeroprese)
 
     def __str__(self):
-        return f"{super.__str__()} con {self.numeroprese} prese aggiuntive"
+        return f"{super().__str__()} con {self.numeroprese} prese aggiuntive"
