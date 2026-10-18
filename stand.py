@@ -9,9 +9,9 @@ class Stand:
 
     def __str__(self):
         if self.disponibile == True:
-            return f"Lo stand identificato con il codice {self.codice} copre una superficie di {self.superficie} metri quadrati, si trova nel padiglione {self.padiglione} e costa {self.prezzo}€. Attualmente è disponibile."
+            return f"Lo stand identificato con il codice {self.codice} copre una superficie di {self.superficie} metri quadrati, si trova nel padiglione {self.padiglione} e costa {self.prezzo:.2f}€. Attualmente è disponibile."
         else:
-            return f"Lo stand identificato con il codice {self.codice} copre una superficie di {self.superficie} metri quadrati, si trova nel padiglione {self.padiglione} e costa {self.prezzo}€. Attualmente risulta assegnato all'espositore {self.espositore_assegnato}."
+            return f"Lo stand identificato con il codice {self.codice} copre una superficie di {self.superficie} metri quadrati, si trova nel padiglione {self.padiglione} e costa {self.prezzo:.2f}€. Attualmente risulta assegnato all'espositore {self.espositore_assegnato.ID}."
 
     def __lt__(self, other):
         return self.prezzo < other.prezzo

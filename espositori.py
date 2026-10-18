@@ -6,4 +6,6 @@ class Espositori():
         self.stand_associato = stand_associato
 
     def __str__(self):
-        return f"L'espositore identificato con il codice {(self.ID)} si chiama {(self.nome)} {(self.cognome)} ed è associato allo stand {(self.stand_associato)}"
+        if self.stand_associato == None:
+            return f"L'espositore identificato con il codice {(self.ID)} si chiama {(self.nome)} {(self.cognome)} e non è associato a nessuno stand"
+        return f"L'espositore identificato con il codice {(self.ID)} si chiama {(self.nome)} {(self.cognome)} ed è associato allo stand {(self.stand_associato.codice)}"

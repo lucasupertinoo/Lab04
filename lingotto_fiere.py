@@ -35,13 +35,13 @@ class LingottoFiere:
 
     def carica_file_dati(self, file_path):
         """Carica i dati (stand ed espositori) dal file"""
-        try:
-            file = open(file_path, "r", encoding="utf-8")
-        except Exception as e:
-            print(e)
+        file = open(file_path, "r", encoding="utf-8")
 
-        file.readline()
+        self._stand = []
+        self._espositori = []
         for line in file:
+            if line.strip() == "":
+                continue
             campo = line.strip().split(",")
             if campo[0][0] == "S":
                 if len(campo) == 4:
@@ -53,9 +53,9 @@ class LingottoFiere:
                 elif len(campo) == 5 and campo[4].isalpha():
                     stand_prem = StandPremium(campo[0], float(campo[1]), int(campo[2]), float(campo[3]), None, True, campo[4])
                     self.stand.append(stand_prem)
-                elif campo[0][0] == "E":
-                    espositore_nuovo = Espositori(campo[0], campo[1], campo[2], None)
-                    self.espositori.append(espositore_nuovo)
+            elif campo[0][0] == "E":
+                espositore_nuovo = Espositori(campo[0], campo[1], campo[2], None)
+                self.espositori.append(espositore_nuovo)
 
         file.close()
 
@@ -78,7 +78,7 @@ class LingottoFiere:
         if not standtrovato:
             raise Exception("Stand non trovato!")
         elif not espositoretrovato:
-            raise Exception("Espositoretro non trovato!")
+            raise Exception("Espositore non trovato!")
 
         if not disponibilita:
             raise Exception("Stand non disponibile!")
@@ -86,9 +86,9 @@ class LingottoFiere:
         if associazione != None:
             raise Exception("Espositore già associato ad uno stand!")
 
-        st.disponibilita = False
-        st.espositore_associato = codice_espositore
-        esp.stand_associato = codice_stand
+        st.disponibile = False
+        st.espositore_assegnato = esp
+        esp.stand_associato = st
 
 
     def elenca_espositori(self):
