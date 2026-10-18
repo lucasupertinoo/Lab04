@@ -1,6 +1,6 @@
 class StandPreseBonus:
-    def __init__(self, codice, superficie, padiglione, prezzo, numeroprese):
-        super().__init__(codice, superficie, padiglione, prezzo)
+    def __init__(self, codice, superficie, padiglione, prezzo, espositore_assegnato, disponibile, numeroprese):
+        super().__init__(codice, superficie, padiglione, prezzo, espositore_assegnato, disponibile)
         self.numeroprese = numeroprese
         self.prezzo = prezzo * (1 + 0.07 * numeroprese)
 

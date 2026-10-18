@@ -1,6 +1,6 @@
 class StandPremium:
-    def __init__(self, codice, superficie, padiglione, prezzo, posizione):
-        super().__init__(codice, superficie, padiglione, prezzo)
+    def __init__(self, codice, superficie, padiglione, prezzo, espositore_assegnato, disponibile, posizione):
+        super().__init__(codice, superficie, padiglione, prezzo, espositore_assegnato, disponibile)
         self.posizione = posizione
         self.prezzo = prezzo * 1.3
 

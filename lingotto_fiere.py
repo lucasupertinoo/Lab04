@@ -46,16 +46,16 @@ class LingottoFiere:
                 campo = line.strip().split(",")
                 if campo[0][0] == "S":
                     if len(campo) == 4:
-                        stand_normale = Stand(campo[0], campo[1], campo[2], campo[3])
+                        stand_normale = Stand(campo[0], campo[1], campo[2], campo[3], None, True)
                         self.stand.append(stand_normale)
                     elif len(campo) == 5 and campo[4].isnumeric():
-                        stand_con_prese = StandPreseBonus(campo[0], campo[1], campo[2], campo[3], campo[4])
+                        stand_con_prese = StandPreseBonus(campo[0], campo[1], campo[2], campo[3], None, True, campo[4])
                         self.stand.append(stand_con_prese)
                     elif len(campo) == 5 and campo[4].isalpha():
-                        stand_prem = StandPremium(campo[0], campo[1], campo[2], campo[3], campo[4])
+                        stand_prem = StandPremium(campo[0], campo[1], campo[2], campo[3], None, True, campo[4])
                         self.stand.append(stand_prem)
                 elif campo[0][0] == "E":
-                    espositore_nuovo = Espositori(campo[0], campo[1], campo[2])
+                    espositore_nuovo = Espositori(campo[0], campo[1], campo[2], None)
                     self.espositori.append(espositore_nuovo)
 
         file.close()
@@ -63,12 +63,38 @@ class LingottoFiere:
 
     def assegna_stand_a_espositore(self, codice_stand, codice_espositore):
         """Associa uno stand a un espositore"""
-        # TODO
+        standtrovato = False
+        espositoretrovato = False
+        for st in self.stand:
+            if st.codice == codice_stand:
+                standtrovato = True
+                disponibilita = st.disponibile
+        for esp in self.espositori:
+            if esp.codice == codice_espositore:
+                espositoretrovato = True
+                associazione = esp.stand_associato
+
+        if not standtrovato:
+            raise("Stand non trovato!")
+        elif not espositoretrovato:
+            raise("Espositoretro non trovato!")
+
+        if not disponibilita:
+            raise("Stand non disponibile!")
+
+        if associazione != None:
+            raise("Espositore già associato ad uno stand!")
+
+        st.disponibilita = False
+        st.espositore_associato = codice_espositore
+        esp.stand_associato = codice_stand
+
 
     def elenca_espositori(self):
         """Stampa l'elenco degli espositori mostrando, per ognuno, lo stand a cui è associato, quando applicabile """
-        # TODO
+        for elemento in self.espositori:
+            return elemento
 
     def stand_ordinati_per_prezzo(self):
         """Restituisce la lista ordinata degli stand in base al prezzo"""
-        # TODO
+        return sorted(self.stand, key=lambda stand: stand.prezzo)
