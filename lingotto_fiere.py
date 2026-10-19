@@ -21,21 +21,17 @@ class LingottoFiere:
     @property
     def espositori(self):
         return self._espositori
-    @espositori.setter
-    def espositori(self, nuovoEspositore):
-        self.espositori.append(nuovoEspositore)
 
     @property
     def stand(self):
         return self._stand
-    @stand.setter
-    def stand(self, nuovoStand):
-        self.stand.append(nuovoStand)
-
 
     def carica_file_dati(self, file_path):
         """Carica i dati (stand ed espositori) dal file"""
-        file = open(file_path, "r", encoding="utf-8")
+        try:
+            file = open(file_path, "r", encoding="utf-8")
+        except Exception:
+            raise FileNotFoundError("File non trovato!")
 
         self._stand = []
         self._espositori = []
