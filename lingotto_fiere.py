@@ -2,6 +2,7 @@ from espositori import Espositori
 from stand import Stand
 from stand_premium import StandPremium
 from stand_prese_bonus import StandPreseBonus
+# Importo tutte le classi e le sottoclassi che mi servono
 
 class LingottoFiere:
     def __init__(self, nome):
@@ -26,6 +27,9 @@ class LingottoFiere:
     def stand(self):
         return self._stand
 
+    # Normalmente gli attributi definiti con le liste non hanno bisogno di setter: al massimo posso definire funzioni parallele di append
+    # Ma in questo caso ho preferito non farlo
+
     def carica_file_dati(self, file_path):
         """Carica i dati (stand ed espositori) dal file"""
         try:
@@ -33,8 +37,8 @@ class LingottoFiere:
         except Exception:
             raise FileNotFoundError("File non trovato!")
 
-        self._stand = []
-        self._espositori = []
+        self._stand = []   # Svuoto la lista
+        self._espositori = []   # Svuoto la lista
         for line in file:
             if line.strip() == "":
                 continue
@@ -60,6 +64,7 @@ class LingottoFiere:
         """Associa uno stand a un espositore"""
         standtrovato = False
         espositoretrovato = False
+        # Uso questi due booleani come sentinelle per capire se uno stand o un espositore ci sia già o meno
         for st in self.stand:
             if st.codice == codice_stand:
                 standtrovato = True
@@ -94,4 +99,4 @@ class LingottoFiere:
 
     def stand_ordinati_per_prezzo(self):
         """Restituisce la lista ordinata degli stand in base al prezzo"""
-        return sorted(self.stand, key=lambda stand: stand.prezzo)
+        return sorted(self.stand, key=lambda stand: stand.prezzo)   # Funzione lambda per sortare
